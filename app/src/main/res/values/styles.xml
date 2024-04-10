@@ -1,0 +1,9 @@
+<resources>
+    <!-- Base application theme -->
+
+
+    <!-- Your custom theme -->
+    <style name="Theme.MyApplication" parent="AppTheme">
+        <!-- Add your customizations here. -->
+    </style>
+</resources>
