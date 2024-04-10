@@ -1,5 +1,7 @@
 package com.example.myapplication.ui.login
 
+
+
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Rect
@@ -23,7 +25,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.example.myapplication.MainActivity
+
 import com.example.myapplication.databinding.ActivityLoginBinding
 
 import com.example.myapplication.R
@@ -119,8 +121,7 @@ class LoginActivity : AppCompatActivity() {
                 showLoginFailed(loginResult.error)
             } else if (loginResult.success != null) {
                 updateUiWithUser(loginResult.success)
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
+
                 finish()
             }
         })
