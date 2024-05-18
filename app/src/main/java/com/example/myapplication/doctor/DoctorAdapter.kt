@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.doctor
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
 
 class DoctorAdapter(private val faqList: List<DoctorItem>): RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>() {
     inner class DoctorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -15,7 +16,8 @@ class DoctorAdapter(private val faqList: List<DoctorItem>): RecyclerView.Adapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_doctor, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_doctor, parent, false)
         return DoctorViewHolder(itemView)
     }
 
