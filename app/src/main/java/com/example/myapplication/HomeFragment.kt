@@ -118,8 +118,7 @@ class HomeFragment : Fragment() {
 
 
         binding.textApp.setOnClickListener {
-            val intent = Intent(activity, MainActivity::class.java)
-            startActivity(intent)
+            findNavController().navigate(R.id.homeFragment)
         }
     }
 

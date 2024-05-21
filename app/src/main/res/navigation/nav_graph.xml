@@ -16,4 +16,22 @@
         android:name="com.example.myapplication.MoreInfoFragment"
         android:label="MoreInfoFragment"
         tools:layout="@layout/fragment_moreinfo" />
+
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.myapplication.ProductsFragment"
+        android:label="ProductsFragment"
+        tools:layout="@layout/fragment_products" />
+
+    <fragment
+        android:id="@+id/DescriptionDietFragment"
+        android:name="com.example.myapplication.DescriptionDietFragment"
+        android:label="DescriptionDietFragment"
+        tools:layout="@layout/fragment_description_diet" />
+
+    <fragment
+        android:id="@+id/DoctorFragment"
+        android:name="com.example.myapplication.doctor.DoctorFragment"
+        android:label="DoctorFragment"
+        tools:layout="@layout/fragment_doctor" />
 </navigation>

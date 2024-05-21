@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.myapplication.data.diseases
 import com.example.myapplication.databinding.FragmentMoreinfoBinding
 
 class MoreInfoFragment : Fragment() {
@@ -28,19 +29,34 @@ class MoreInfoFragment : Fragment() {
         // Получение аргументов
         val title = arguments?.getString("title") ?: "No Title"
 
+        val disease = diseases.find { it.name == title }
         // Установка текста в виджеты
-        binding.textDescr.text = "Питание по разделам"
-        binding.cardTitle1.text = title
-        binding.cardText1.text = "Хирургическое вмешательство, подразумевающее тотальное (полное) удаление желудка с наложением пищеводно-кишечного соустья (анастомоза)."
-        binding.cardTitle2.text = "Список продуктов"
-        binding.cardTitle3.text = "Пищевые добавки"
-        binding.cardTitle4.text = "Описание диеты"
-        binding.cardTitle5.text = "Врач"
-
+        disease?.let {
+            binding.textDescr.text = "Питание по разделам"
+            binding.cardTitle1.text = title
+            binding.cardText1.text = it.description
+            binding.cardTitle2.text = "Список продуктов"
+            binding.cardTitle3.text = "Пищевые добавки"
+            binding.cardTitle4.text = "Описание диеты"
+            binding.cardTitle5.text = "Врач"
+        }
         // Обработчик нажатия на textApp
         binding.textApp.setOnClickListener {
             findNavController().navigate(R.id.homeFragment)
         }
+
+        binding.cardView2.setOnClickListener {
+            findNavController().navigate(R.id.productsFragment)
+        }
+
+        binding.cardView4.setOnClickListener {
+            findNavController().navigate(R.id.DescriptionDietFragment)
+        }
+
+        binding.cardView5.setOnClickListener {
+            findNavController().navigate(R.id.DoctorFragment)
+        }
+
     }
 
     override fun onDestroyView() {

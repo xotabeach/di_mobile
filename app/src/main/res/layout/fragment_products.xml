@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#1F7460">
+
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/next" />
+
+    <TextView
+        android:id="@+id/textApp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/alex_brush"
+        android:text="DietApp"
+        android:textColor="#E8E2E2"
+        android:textSize="24sp" />
+
+
+    <TextView
+        android:id="@+id/textDescr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/amatic_sc"
+        android:text="Список продуктов"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="45dp" />
+
+
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toBottomOf="@id/textDescr"
+        android:id="@+id/cardView1"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="40dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+            <TextView
+                android:layout_width="309dp"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="bottom"
+                android:fontFamily="@font/amatic_sc"
+                android:text= "Поиск по продуктам" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitEnd"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/xmark" />
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toBottomOf="@id/cardView1"
+        android:id="@+id/cardView2"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:padding="70dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/amatic_sc"
+            android:text="" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toBottomOf="@id/cardView2"
+        android:id="@+id/cardView3"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:padding="70dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/amatic_sc"
+            android:text="" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toBottomOf="@id/cardView3"
+        android:id="@+id/cardView4"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:padding="70dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/amatic_sc"
+            android:text="" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toBottomOf="@id/cardView4"
+        android:id="@+id/cardView5"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:padding="70dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/amatic_sc"
+            android:text="" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toBottomOf="@id/cardView5"
+        android:id="@+id/cardView6"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:padding="70dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/amatic_sc"
+            android:text="" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        app:layout_constraintTop_toBottomOf="@id/cardView6"
+        android:id="@+id/cardView7"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:layout_marginTop="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:padding="70dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="bottom"
+                android:fontFamily="@font/amatic_sc"
+                android:text="" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Иконка "Закладки" -->
+        <ImageView
+            android:id="@+id/bookmarkIcon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/bookmark_white"
+            android:translationZ="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Иконка "Меню" -->
+        <ImageView
+            android:id="@+id/menuIcon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="25dp"
+            android:src="@drawable/list"
+            android:translationZ="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Основной круг -->
+        <ImageView
+            android:id="@+id/clippedCircle"
+            android:layout_width="477dp"
+            android:layout_height="134dp"
+            android:layout_marginBottom="-40dp"
+            android:src="@drawable/circle_drawable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.9" />
+
+        <!-- Внутренний круг с изображением -->
+        <ImageView
+            android:id="@+id/innerCircle"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginBottom="120dp"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="@id/clippedCircle"
+            app:layout_constraintEnd_toEndOf="@id/clippedCircle"
+            app:layout_constraintStart_toStartOf="@id/clippedCircle"
+            app:layout_constraintTop_toTopOf="@id/clippedCircle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
