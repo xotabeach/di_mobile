@@ -1,7 +1,13 @@
+
+
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-kapt")
 }
+
+
 
 android {
     namespace = "com.example.myapplication"
@@ -48,7 +54,6 @@ android {
 }
 
 dependencies {
-
 
 
     implementation("androidx.fragment:fragment-ktx:1.3.4")

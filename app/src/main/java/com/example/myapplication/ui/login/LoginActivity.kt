@@ -1,40 +1,35 @@
 package com.example.myapplication.ui.login
 
-
-
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Rect
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.SparseArray
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.TranslateAnimation
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-
-import com.example.myapplication.databinding.ActivityLoginBinding
-
+import android.util.SparseArray
+import android.view.ViewGroup
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import kotlin.math.log
+import com.example.myapplication.data.model.UserRepository
+import com.example.myapplication.data.model.User
+import com.example.myapplication.databinding.ActivityLoginBinding
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
     private val initialParamsSparseArray = SparseArray<ViewGroup.LayoutParams>()
-
 
     private lateinit var loginGoogle: LinearLayout
     private lateinit var loginYandex: LinearLayout
@@ -50,7 +45,6 @@ class LoginActivity : AppCompatActivity() {
     private var log2height: Float = 0.0f
     private var phoneheight: Float = 0.0f
     private var dockcheckheight: Float = 0.0f
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,19 +68,18 @@ class LoginActivity : AppCompatActivity() {
         buttonLogin = binding.pushLogin!!
         buttonRegister = binding.pushRegister!!
 
-        username.visibility = View.GONE;
-        password.visibility = View.GONE;
-        login.visibility = View.GONE;
-        phone.visibility = View.GONE;
-        name.visibility = View.GONE;
-        surname.visibility = View.GONE;
-        text.visibility = View.GONE;
-        doctorCheckBox.visibility = View.GONE;
+        username.visibility = View.GONE
+        password.visibility = View.GONE
+        login.visibility = View.GONE
+        phone.visibility = View.GONE
+        name.visibility = View.GONE
+        surname.visibility = View.GONE
+        text.visibility = View.GONE
+        doctorCheckBox.visibility = View.GONE
         login2.visibility = View.GONE
         loginVk.visibility = View.GONE
         loginYandex.visibility = View.GONE
         loginGoogle.visibility = View.GONE
-
 
         window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -98,45 +91,11 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
-            }
-            if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
-            }
-        })
-
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer { loginResult ->
-            loginResult ?: return@Observer
-
-            binding.loading?.visibility = View.GONE
-
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            } else if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-
-                finish()
-            }
-        })
-
-
-        username.afterTextChanged {
-            loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
-            )
-        }
+        val userRepository = UserRepository(this)
 
         buttonLogin.setOnClickListener {
             buttonLogin.visibility = View.GONE
-            buttonRegister?.visibility = View.GONE
+            buttonRegister.visibility = View.GONE
 
             val slideInLeftAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_left)
             val slideInRightAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right)
@@ -153,19 +112,7 @@ class LoginActivity : AppCompatActivity() {
             loginVk.visibility = View.VISIBLE
             loginGoogle.visibility = View.VISIBLE
             loginYandex.visibility = View.VISIBLE
-
-
-            // Получаем расположение по высоте для username и password
-            val usernameY = binding.username.y
-            val passwordY = binding.password.y
-
-            // Отображаем значения в консоли
-            println("Username Y position: $usernameY")
-            println("Password Y position: $passwordY")
-
-            // Добавьте другие действия, которые должны произойти после нажатия на кнопку buttonLogin
         }
-
 
         buttonRegister.setOnClickListener {
             buttonLogin.visibility = View.GONE
@@ -195,7 +142,6 @@ class LoginActivity : AppCompatActivity() {
             phone.translationY = phoneheight
             doctorCheckBox.translationY = dockcheckheight
 
-
             name.visibility = View.VISIBLE
             surname.visibility = View.VISIBLE
             username.visibility = View.VISIBLE
@@ -206,99 +152,139 @@ class LoginActivity : AppCompatActivity() {
 
             name.startAnimation(slideInLeftAnimation)
             surname.startAnimation(slideInRightAnimation)
-
         }
-
 
         login2.setOnClickListener {
-            buttonLogin.visibility = View.VISIBLE
-            buttonRegister.visibility = View.VISIBLE
+            val usernameText = username.text.toString().trimStart()
+            val passwordText = password.text.toString().trimStart()
+            val nameText = name.text.toString().trimStart()
+            val surnameText = surname.text.toString().trimStart()
+            val phoneText = phone.text.toString().trimStart()
+            val isDoctor = doctorCheckBox.isChecked
 
-            val halfScreenHeight = container.height / 2
+            if (usernameText.isNotEmpty() && passwordText.isNotEmpty() && nameText.isNotEmpty() && surnameText.isNotEmpty() && phoneText.isNotEmpty()) {
+                lifecycleScope.launch {
+                    val existingUser = userRepository.getUserByUsername(usernameText)
+                    if (existingUser == null) {
+                        val user = User(usernameText, passwordText, nameText, surnameText, phoneText, isDoctor)
+                        userRepository.insertUser(user)
+                        Toast.makeText(this@LoginActivity, "Registration successful", Toast.LENGTH_SHORT).show()
 
-            val slideDownAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up)
-            val slideInLeftAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_left)
-            val slideInRightAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right)
-
-
-            username.translationY = 0f
-            password.translationY = 0f
-            login2.translationY = -log2height
-            phone.translationY = -phoneheight
-            doctorCheckBox.translationY = -dockcheckheight
-
-
-
-            name.visibility = View.GONE
-            surname.visibility = View.GONE
-            username.visibility = View.GONE
-            password.visibility = View.GONE
-            phone.visibility = View.GONE
-            login2.visibility = View.GONE
-            doctorCheckBox.visibility = View.GONE
-            login.visibility = View.GONE
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Username already exists", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+            }
         }
 
+        login.setOnClickListener {
+            val usernameText = username.text.toString().trimStart()
+            val passwordText = password.text.toString().trimStart()
+
+            if (usernameText.isNotEmpty() && passwordText.isNotEmpty()) {
+                lifecycleScope.launch {
+                    val user = userRepository.getUserByUsername(usernameText)
+                    if (user != null && user.password == passwordText) {
+                        Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Please enter a username and password", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        username.apply {
+            afterTextChanged {
+                loginViewModel.loginDataChanged(
+                    username.text.toString().trimStart(),
+                    password.text.toString().trimStart()
+                )
+            }
+
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    text.setText("")
+                }
+            }
+        }
 
         password.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                    username.text.toString().trimStart(),
+                    password.text.toString().trimStart()
                 )
+            }
+
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    text.setText("")
+                }
             }
 
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
+                            username.text.toString().trimStart(),
+                            password.text.toString().trimStart()
                         )
                 }
                 false
             }
+        }
 
-            login.setOnClickListener {
-                binding.loading?.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+        phone.apply {
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    text.setText("")
+                }
+            }
+        }
+
+        name.apply {
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    text.setText("")
+                }
+            }
+        }
+
+        surname.apply {
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    text.setText("")
+                }
             }
         }
     }
 
     private fun saveInitialParams() {
-        // Сохраняем исходные параметры каждого элемента по их идентификаторам
         initialParamsSparseArray.put(R.id.username, binding.username.layoutParams)
-        println("Saved initial params for username: ${binding.username.layoutParams}")
-
         initialParamsSparseArray.put(R.id.password, binding.password.layoutParams)
-        println("Saved initial params for password: ${binding.password.layoutParams}")
-
         initialParamsSparseArray.put(R.id.name, name.layoutParams)
-        println("Saved initial params for name: ${name.layoutParams}")
-
         initialParamsSparseArray.put(R.id.surname, surname.layoutParams)
-        println("Saved initial params for surname: ${surname.layoutParams}")
-
         initialParamsSparseArray.put(R.id.login, binding.login.layoutParams)
-        println("Saved initial params for login: ${binding.login.layoutParams}")
     }
 
     private fun restoreInitialParams() {
-        // Восстанавливаем исходные параметры каждого элемента по их идентификаторам
         for (i in 0 until initialParamsSparseArray.size()) {
             val id = initialParamsSparseArray.keyAt(i)
             val view = findViewById<View>(id)
             view.layoutParams = initialParamsSparseArray.valueAt(i)
-            println("Restored initial params for view with ID $id: ${initialParamsSparseArray.valueAt(i)}")
         }
     }
-
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
-        // TODO : initiate successful logged in experience
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",
@@ -311,9 +297,6 @@ class LoginActivity : AppCompatActivity() {
     }
 }
 
-/**
- * Extension function to simplify setting an afterTextChanged action to EditText components.
- */
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     this.addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(editable: Editable?) {

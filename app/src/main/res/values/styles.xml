@@ -4,6 +4,11 @@
 
     <!-- Your custom theme -->
     <style name="Theme.MyApplication" parent="AppTheme">
-        <!-- Add your customizations here. -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
+
+
+
 </resources>
