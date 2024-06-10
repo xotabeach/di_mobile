@@ -6,24 +6,13 @@
     android:layout_height="match_parent"
     android:background="#1F7460">
 
-    <TextView
-        android:id="@+id/textApp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/alex_brush"
-        android:text="DietApp"
-        android:textColor="#E8E2E2"
-        android:textSize="24sp" />
+
 
     <TextView
         android:id="@+id/textDescr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textApp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amatic_sc"

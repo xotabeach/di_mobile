@@ -6,18 +6,23 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.login.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
+
 
         // Установка заголовка
 
@@ -30,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             navController.navigate(R.id.homeFragment)
         }
+        binding.textApp.setOnClickListener {
+            navController.navigate(R.id.homeFragment)
+        }
+
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

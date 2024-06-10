@@ -117,9 +117,7 @@ class HomeFragment : Fragment() {
 
 
 
-        binding.textApp.setOnClickListener {
-            findNavController().navigate(R.id.homeFragment)
-        }
+
     }
 
     override fun onDestroyView() {

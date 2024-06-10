@@ -170,6 +170,7 @@ class LoginActivity : AppCompatActivity() {
                         userRepository.insertUser(user)
                         Toast.makeText(this@LoginActivity, "Registration successful", Toast.LENGTH_SHORT).show()
 
+
                     } else {
                         Toast.makeText(this@LoginActivity, "Username already exists", Toast.LENGTH_SHORT).show()
                     }

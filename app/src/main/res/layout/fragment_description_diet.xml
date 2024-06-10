@@ -14,25 +14,14 @@
         android:scaleType="fitStart"
         android:src="@drawable/next" />
 
-    <TextView
-        android:id="@+id/textApp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/alex_brush"
-        android:text="DietApp"
-        android:textColor="#E8E2E2"
-        android:textSize="24sp" />
+
 
 
     <TextView
         android:id="@+id/textDescr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textApp"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/amatic_sc"
@@ -155,60 +144,6 @@
             android:src="@drawable/down_arrow" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Иконка "Закладки" -->
-        <ImageView
-            android:id="@+id/bookmarkIcon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginBottom="25dp"
-            android:src="@drawable/bookmark_white"
-            android:translationZ="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- Иконка "Меню" -->
-        <ImageView
-            android:id="@+id/menuIcon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="60dp"
-            android:layout_marginBottom="25dp"
-            android:src="@drawable/list"
-            android:translationZ="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Основной круг -->
-        <ImageView
-            android:id="@+id/clippedCircle"
-            android:layout_width="477dp"
-            android:layout_height="134dp"
-            android:layout_marginBottom="-40dp"
-            android:src="@drawable/circle_drawable"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.9" />
-
-        <!-- Внутренний круг с изображением -->
-        <ImageView
-            android:id="@+id/innerCircle"
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:layout_marginBottom="120dp"
-            android:src="@drawable/circle"
-            app:layout_constraintBottom_toBottomOf="@id/clippedCircle"
-            app:layout_constraintEnd_toEndOf="@id/clippedCircle"
-            app:layout_constraintStart_toStartOf="@id/clippedCircle"
-            app:layout_constraintTop_toTopOf="@id/clippedCircle" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

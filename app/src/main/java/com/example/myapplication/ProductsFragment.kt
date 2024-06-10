@@ -34,7 +34,7 @@ class ProductsFragment : Fragment() {
 
         lifecycleScope.launch {
             val products = withContext(Dispatchers.IO) {
-                dbHelper.getProductsByDiet("some_diet") // Замените "some_diet" на нужный параметр диеты
+                dbHelper.getProductsByDiet("любая") // Замените "some_diet" на нужный параметр диеты
             }
             displayProducts(products, productsContainer)
         }

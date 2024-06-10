@@ -7,7 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.myapplication.data.diseases
+import com.example.myapplication.data.Disease
+import com.example.myapplication.data.Disease.diseases
 import com.example.myapplication.databinding.FragmentMoreinfoBinding
 
 class MoreInfoFragment : Fragment() {
@@ -41,9 +42,7 @@ class MoreInfoFragment : Fragment() {
             binding.cardTitle5.text = "Врач"
         }
         // Обработчик нажатия на textApp
-        binding.textApp.setOnClickListener {
-            findNavController().navigate(R.id.homeFragment)
-        }
+
 
         binding.cardView2.setOnClickListener {
             findNavController().navigate(R.id.productsFragment)
