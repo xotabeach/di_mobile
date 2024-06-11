@@ -169,7 +169,9 @@ class LoginActivity : AppCompatActivity() {
                         val user = User(usernameText, passwordText, nameText, surnameText, phoneText, isDoctor)
                         userRepository.insertUser(user)
                         Toast.makeText(this@LoginActivity, "Registration successful", Toast.LENGTH_SHORT).show()
-
+                        val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
                     } else {
                         Toast.makeText(this@LoginActivity, "Username already exists", Toast.LENGTH_SHORT).show()
@@ -189,7 +191,12 @@ class LoginActivity : AppCompatActivity() {
                     val user = userRepository.getUserByUsername(usernameText)
                     if (user != null && user.password == passwordText) {
                         Toast.makeText(this@LoginActivity, "Login successful", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+
+                        // Создаем intent и добавляем данные
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
+                            putExtra("USERNAME", usernameText)
+                            putExtra("PASSWORD", passwordText)
+                        }
                         startActivity(intent)
                         finish()
                     } else {
@@ -199,6 +206,7 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Please enter a username and password", Toast.LENGTH_SHORT).show()
             }
+
         }
 
         username.apply {

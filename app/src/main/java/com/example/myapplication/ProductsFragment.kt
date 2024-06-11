@@ -2,14 +2,17 @@ package com.example.myapplication
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.data.model.DatabaseHelper
 import com.example.myapplication.data.model.Product
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +34,14 @@ class ProductsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_products, container, false)
         val productsContainer = view.findViewById<LinearLayout>(R.id.products_container)
+
+        val title = arguments?.getString("title");
+        Log.d("title", "title is : $title")
+        val backButton = view.findViewById<ImageView>(R.id.backButton)
+        backButton.setOnClickListener {
+            val bundle = Bundle().apply { putString("title", title) }
+            findNavController().navigate(R.id.moreInfoFragment, bundle)
+        }
 
         lifecycleScope.launch {
             val products = withContext(Dispatchers.IO) {

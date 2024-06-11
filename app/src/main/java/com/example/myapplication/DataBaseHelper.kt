@@ -14,17 +14,21 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.execSQL(CREATE_USER_TABLE)
         db.execSQL(CREATE_PRODUCT_TABLE)
         db.execSQL(CREATE_DISEASE_TABLE)
+        db.execSQL(CREATE_COMPONENT_TABLE)
         insertInitialData(db) // Вставляем начальные данные
         insertInitialProducts(db) // Вставляем начальные продукты
+        insertInitialComponents(db) // Вставляем начальные компоненты
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_USER")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_PRODUCT")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_DISEASE")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_COMPONENT")
         onCreate(db)
     }
 
+    @SuppressLint("Range")
     fun getUserByUsername(username: String): User? {
         val db = this.readableDatabase
         val cursor = db.query(
@@ -76,6 +80,34 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
 
     @SuppressLint("Range")
+    fun getComponentsByDiet(diet: String): List<Component> {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            TABLE_COMPONENT,
+            arrayOf(KEY_COMPONENT_NAME, KEY_COMPONENT_E_NUMBER, KEY_COMPONENT_DANGER_LEVEL, KEY_COMPONENT_DIET),
+            "$KEY_COMPONENT_DIET = ?",
+            arrayOf(diet),
+            null, null, null
+        )
+        val components = mutableListOf<Component>()
+        if (cursor.moveToFirst()) {
+            do {
+                val component = Component(
+                    cursor.getString(cursor.getColumnIndex(KEY_COMPONENT_NAME)),
+                    cursor.getString(cursor.getColumnIndex(KEY_COMPONENT_E_NUMBER)),
+                    cursor.getInt(cursor.getColumnIndex(KEY_COMPONENT_DANGER_LEVEL)),
+                    cursor.getString(cursor.getColumnIndex(KEY_COMPONENT_DIET))
+                )
+                components.add(component)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return components
+    }
+
+
+
+    @SuppressLint("Range")
     fun getProductsByDiet(diet: String): List<Product> {
         val db = this.readableDatabase
         val cursor = db.query(
@@ -114,6 +146,32 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
     }
 
+    private fun insertInitialComponents(db: SQLiteDatabase) {
+        val components = listOf(
+            Component(name = "Куркумин", eNumber = "E100i", dangerLevel = 3, diet = "любая"),
+            Component(name = "Рибофлавин", eNumber = "E101", dangerLevel = 3, diet = "любая"),
+            Component(name = "Тартразин", eNumber = "E102", dangerLevel = 2, diet = "любая"),
+            Component(name = "Алканит/алканет", eNumber = "E103", dangerLevel = 2, diet = "любая"),
+            Component(name = "Желтый хинолиновый", eNumber = "E104", dangerLevel = 3, diet = "любая"),
+            Component(name = "Эритрозин", eNumber = "E127", dangerLevel = 1, diet = "любая"),
+            Component(name = "Желтый 2G", eNumber = "E107", dangerLevel = 2, diet = "любая"),
+            Component(name = "Кармины", eNumber = "E120", dangerLevel = 3, diet = "любая"),
+            Component(name = "Цитрусовый красный 2", eNumber = "E121", dangerLevel = 1, diet = "любая"),
+            Component(name = "Амарант", eNumber = "E123", dangerLevel = 1, diet = "любая")
+        )
+
+        for (component in components) {
+            val values = ContentValues().apply {
+                put(KEY_COMPONENT_NAME, component.name)
+                put(KEY_COMPONENT_E_NUMBER, component.eNumber)
+                put(KEY_COMPONENT_DANGER_LEVEL, component.dangerLevel)
+                put(KEY_COMPONENT_DIET, component.diet)
+            }
+            db.insert(TABLE_COMPONENT, null, values)
+        }
+    }
+
+
     private fun insertInitialProducts(db: SQLiteDatabase) {
         val products = listOf(
             Product(name = "Авокадо", usefulness = -2, diet = "любая"),
@@ -151,11 +209,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
 
     companion object {
-        private const val DATABASE_VERSION = 2
+        private const val DATABASE_VERSION = 3
         private const val DATABASE_NAME = "app_db"
         private const val TABLE_USER = "user"
         private const val TABLE_PRODUCT = "product"
         private const val TABLE_DISEASE = "disease"
+        private const val TABLE_COMPONENT = "components"
 
         // Параметры для таблицы пользователей
         private const val KEY_USERNAME = "username"
@@ -179,6 +238,23 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_DISEASE_SYMPTOMS = "symptoms"
         private const val KEY_DISEASE_DIAGNOSTICS = "diagnostics"
         private const val KEY_DISEASE_TREATMENTS = "treatment"
+
+
+        private const val KEY_COMPONENT_ID = "id"
+        private const val KEY_COMPONENT_NAME = "name"
+        private const val KEY_COMPONENT_E_NUMBER = "e_number"
+        private const val KEY_COMPONENT_DANGER_LEVEL = "danger_level"
+        private const val KEY_COMPONENT_DIET = "diet"
+
+        private const val CREATE_COMPONENT_TABLE = (
+                "CREATE TABLE " + TABLE_COMPONENT + "(" +
+                        KEY_COMPONENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        KEY_COMPONENT_NAME + " TEXT NOT NULL," +
+                        KEY_COMPONENT_E_NUMBER + " TEXT NOT NULL," +
+                        KEY_COMPONENT_DANGER_LEVEL + " INTEGER NOT NULL," +
+                        KEY_COMPONENT_DIET + " TEXT NOT NULL" + ")"
+                )
+
 
         // Создание таблицы пользователей
         private const val CREATE_USER_TABLE = (

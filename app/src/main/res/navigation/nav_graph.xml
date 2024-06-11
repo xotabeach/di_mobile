@@ -34,4 +34,11 @@
         android:name="com.example.myapplication.doctor.DoctorFragment"
         android:label="DoctorFragment"
         tools:layout="@layout/fragment_doctor" />
+
+    <fragment
+        android:id="@+id/componentsFragment"
+        android:name="com.example.myapplication.ComponentsFragment"
+        android:label="componentsFragment"
+        tools:layout="@layout/fragment_components" />
+
 </navigation>
