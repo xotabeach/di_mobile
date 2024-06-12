@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
+import android.database.Cursor
 import com.example.myapplication.data.Disease
 import com.example.myapplication.data.DiseaseData
 
@@ -53,6 +54,62 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             null
         }
     }
+
+    @SuppressLint("Range")
+    fun getDiseaseDataByName(name: String): DiseaseData? {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            TABLE_DISEASE,
+            arrayOf(KEY_DISEASE_NAME, KEY_DISEASE_DESCRIPTION, KEY_DISEASE_RISK_FACTORS, KEY_DISEASE_SYMPTOMS, KEY_DISEASE_DIAGNOSTICS, KEY_DISEASE_TREATMENTS),
+            "$KEY_DISEASE_NAME = ?",
+            arrayOf(name),
+            null, null, null
+        )
+
+        return if (cursor != null && cursor.moveToFirst()) {
+            val disease = DiseaseData(
+                name = cursor.getString(cursor.getColumnIndex(KEY_DISEASE_NAME)),
+                description = cursor.getString(cursor.getColumnIndex(KEY_DISEASE_DESCRIPTION)),
+                causes = cursor.getString(cursor.getColumnIndex(KEY_DISEASE_RISK_FACTORS)),
+                symptoms = cursor.getString(cursor.getColumnIndex(KEY_DISEASE_SYMPTOMS)),
+                diagnostics = cursor.getString(cursor.getColumnIndex(KEY_DISEASE_DIAGNOSTICS)),
+                treatment = cursor.getString(cursor.getColumnIndex(KEY_DISEASE_TREATMENTS))
+            )
+            cursor.close()
+            disease
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+    @SuppressLint("Range")
+    fun getUser(username: String, password: String): User? {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            TABLE_USER,
+            arrayOf(KEY_USERNAME, KEY_PASSWORD, KEY_NAME, KEY_SURNAME, KEY_PHONE, KEY_IS_DOCTOR),
+            "$KEY_USERNAME = ? AND $KEY_PASSWORD = ?",
+            arrayOf(username, password),
+            null, null, null
+        )
+        return if (cursor != null && cursor.moveToFirst()) {
+            val user = User(
+                cursor.getString(cursor.getColumnIndex(KEY_USERNAME)),
+                cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)),
+                cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                cursor.getString(cursor.getColumnIndex(KEY_SURNAME)),
+                cursor.getString(cursor.getColumnIndex(KEY_PHONE)),
+                cursor.getInt(cursor.getColumnIndex(KEY_IS_DOCTOR)) > 0
+            )
+            cursor.close()
+            user
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
 
     fun insertUser(user: User) {
         val db = this.writableDatabase

@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_profile"
+        android:title="ЛИЧНЫЙ КАБИНЕТ" />
+    <item
+        android:id="@+id/nav_product_composition"
+        android:title="СОСТАВ ПРОДУКТОВ" />
+    <item
+        android:id="@+id/nav_menu"
+        android:title="МЕНЮ" />
+    <item
+        android:id="@+id/nav_consultations"
+        android:title="КОНСУЛЬТАЦИИ" />
+</menu>

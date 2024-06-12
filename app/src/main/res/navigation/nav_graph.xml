@@ -41,4 +41,11 @@
         android:label="componentsFragment"
         tools:layout="@layout/fragment_components" />
 
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.myapplication.ProfileFragment"
+        android:label="profileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+
 </navigation>

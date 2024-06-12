@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1F7460">
+
+    <ImageView
+        android:id="@+id/backButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="36dp"
+        android:layout_height="40dp"
+        android:scaleType="fitStart"
+        android:layout_marginStart="15dp"
+        android:src="@drawable/next" />
+
+
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="36dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/to"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+         />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="-50dp"
+        android:scaleType="fitEnd"
+
+        android:src="@drawable/new_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView1"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image1">
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+
+                android:layout_margin="5dp"
+                android:fontFamily="@font/amatic_sc"
+                android:text=""
+                android:textSize="24sp" />
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView1">
+
+
+        <LinearLayout
+            android:layout_width="369dp"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="141dp">
+            <TextView
+                android:id="@+id/surname"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:layout_gravity="bottom"
+                android:fontFamily="@font/amatic_sc"
+                android:text="" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="bottom"
+            android:fontFamily="@font/amatic_sc"
+            android:text="" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="133dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="56dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/kart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView2" />
+
+    <!-- Нужно установить значение на цвет 25 как в фигме -->
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="161dp"
+        android:layout_height="26dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="164dp"
+
+        android:layout_marginTop="68dp"
+        android:fontFamily="@font/alex_brush"
+        android:text="нужна помощь?"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView2" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="224dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="164dp"
+
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/alex_brush"
+        android:text="служба поддержки"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text1" />
+
+    <TextView
+        android:layout_width="224dp"
+        android:layout_height="30dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="28dp"
+
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/amatic_sc"
+        android:text="Выйти из профиля"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image2" />
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="31dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="72dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/prof"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text2" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

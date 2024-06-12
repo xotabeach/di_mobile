@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contextual_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CCFFFFFF"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="ЛИЧНЫЙ КАБИНЕТ"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/product_composition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="СОСТАВ ПРОДУКТОВ"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="МЕНЮ"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/consultations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="КОНСУЛЬТАЦИИ"
+        android:textSize="16sp" />
+
+</LinearLayout>
