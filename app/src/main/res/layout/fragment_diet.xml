@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1F7460"
+    tools:context=".DietFragment">
+
+    <!-- Dropdown for selecting disease -->
+    <Spinner
+        android:id="@+id/spinnerDisease"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:spinnerMode="dropdown"
+        android:entries="@array/diseases_array"
+        android:background="@drawable/spinner_background"
+        android:padding="10dp"
+        android:dropDownWidth="match_parent"
+        android:textColor="#000" />
+
+    <!-- Dropdown for selecting products to exclude -->
+    <MultiAutoCompleteTextView
+        android:id="@+id/multiAutoCompleteTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerDisease"
+        android:hint="Exclude products"
+        android:completionHint="Select products"
+        android:inputType="text"
+        android:dropDownWidth="match_parent"
+        android:background="@drawable/spinner_background"
+        android:padding="10dp"
+        android:textColor="#000" />
+
+    <!-- Button to create diet -->
+    <Button
+        android:id="@+id/buttonCreateDiet"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/multiAutoCompleteTextView"
+        android:text="Create Diet"
+        android:textColor="#FFF"
+        android:background="@drawable/button_background"
+        android:padding="15dp"
+        android:textSize="16sp" />
+
+    <!-- TextView to display the generated diet -->
+    <TextView
+        android:id="@+id/textViewDiet"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonCreateDiet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#FFF"
+        android:padding="15dp"
+        android:textColor="#000"
+        android:visibility="gone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

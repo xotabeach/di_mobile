@@ -12,4 +12,32 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="toggle_answer" />
+
+    <string name="select_disease">Выберите болезнь</string>
+    <string name="select_exclude_products">Выберите продукты для исключения</string>
+    <string name="generate_diet">Создать диету</string>
+    <string name="exclude_products_hint">Exclude products</string>
+    <string name="completion_hint">Select products</string>
+
+    <string-array name="diseases_array">
+        <item>Гастрэктомия</item>
+        <item>Целиакия</item>
+        <item>Гастрит обострение</item>
+        <item>Резекция желудка</item>
+        <item>Панкреатит ремиссия</item>
+        <item>Гастрит(ремиссия)</item>
+        <item>ГЭРБ</item>
+        <item>Болезнь Крона</item>
+        <item>Холецистит</item>
+    </string-array>
+
+    <string-array name="products_array">
+        <item>Яйца</item>
+        <item>Молоко</item>
+        <item>Цитрусовые</item>
+        <item>Глютен</item>
+        <item>Орехи</item>
+    </string-array>
+
+
 </resources>

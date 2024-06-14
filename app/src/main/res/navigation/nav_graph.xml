@@ -48,4 +48,11 @@
         tools:layout="@layout/fragment_profile" />
 
 
+    <fragment
+        android:id="@+id/DietFragment"
+        android:name="com.example.myapplication.DietFragment"
+        android:label="DietFragmentt"
+        tools:layout="@layout/fragment_diet" />
+
+
 </navigation>

@@ -1,6 +1,8 @@
 
 
 
+
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -13,12 +15,19 @@ android {
     namespace = "com.example.myapplication"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.example.myapplication"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+
+        buildConfigField("String", "OPENAI_API_KEY", "\"" + "sk-proj-zWQsys6JPxzk11hM0Wr9T3BlbkFJNReZKg7KO2tnMdKBMMKW" + "\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -54,6 +63,16 @@ android {
 }
 
 dependencies {
+
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation ("org.json:json:20210307")
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
 
 
     implementation("androidx.fragment:fragment-ktx:1.3.4")

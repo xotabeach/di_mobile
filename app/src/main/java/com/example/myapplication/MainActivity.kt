@@ -65,7 +65,9 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.homeFragment)
         }
 
-
+        binding.innerCircle.setOnClickListener {
+            navController.navigate(R.id.DietFragment)
+        }
 
         menuIcon.setOnClickListener {
             if (contextualMenu.visibility == View.GONE) {
