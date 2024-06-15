@@ -25,12 +25,16 @@ class ProfileFragment : Fragment() {
         // Получаем данные из Bundle
         val username = arguments?.getString("USERNAME")
         val password = arguments?.getString("PASSWORD")
+        var doctor = ""
 
         if (username != null && password != null) {
             val user = databaseHelper.getUser(username, password)
             if (user != null) {
-                view.findViewById<TextView>(R.id.name).text = user.name
-                view.findViewById<TextView>(R.id.surname).text = user.surname
+                if (user.isDoctor) {
+                    doctor = "Врач"}
+                else {doctor = "Пациент"}
+                view.findViewById<TextView>(R.id.name).text = user.name + " "+user.surname
+                view.findViewById<TextView>(R.id.surname).text = doctor
 
                 // Добавьте отображение других полей, если необходимо
             }

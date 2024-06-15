@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var contextualMenu: LinearLayout
     private lateinit var menuIcon: ImageView
+    private lateinit var nav_profile:TextView
     private var username = ""
     private var password = ""
     val bookmarks = mutableSetOf<String>()
@@ -35,20 +36,14 @@ class MainActivity : AppCompatActivity() {
 
         contextualMenu = findViewById(R.id.contextualMenu)
         menuIcon = findViewById(R.id.menuIcon)
+        nav_profile = findViewById(R.id.nav_profile)
 
 
+
+
+        nav_profile.isClickable = false
         contextualMenu.visibility = View.GONE
-        val animate = TranslateAnimation(0f, -contextualMenu.width.toFloat()*2, 0f, 0f)
-        animate.duration = 300
-        animate.fillAfter = true
-        contextualMenu.startAnimation(animate)
-        animate.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
-            override fun onAnimationRepeat(animation: Animation) {}
-            override fun onAnimationEnd(animation: Animation) {
-                contextualMenu.visibility = View.GONE
-            }
-        })
+
 
         Log.d("MainActivity", "Username: $username, Password: $password")
 
@@ -107,6 +102,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showMenu() {
         contextualMenu.visibility = View.VISIBLE
+        nav_profile.isClickable = true
+
         val animate = TranslateAnimation(-contextualMenu.width.toFloat()*2, 0f, 0f, 0f)
         animate.duration = 300
         animate.fillAfter = true
@@ -123,6 +120,7 @@ class MainActivity : AppCompatActivity() {
             override fun onAnimationRepeat(animation: Animation) {}
             override fun onAnimationEnd(animation: Animation) {
                 contextualMenu.visibility = View.GONE
+                nav_profile.isClickable = false
             }
         })
     }

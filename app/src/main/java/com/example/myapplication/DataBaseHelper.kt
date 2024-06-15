@@ -40,6 +40,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             null, null, null
         )
         return if (cursor != null && cursor.moveToFirst()) {
+
             val user = User(
                 cursor.getString(cursor.getColumnIndex(KEY_USERNAME)),
                 cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)),
@@ -47,6 +48,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 cursor.getString(cursor.getColumnIndex(KEY_SURNAME)),
                 cursor.getString(cursor.getColumnIndex(KEY_PHONE)),
                 cursor.getInt(cursor.getColumnIndex(KEY_IS_DOCTOR)) > 0
+
             )
             cursor.close()
             user
