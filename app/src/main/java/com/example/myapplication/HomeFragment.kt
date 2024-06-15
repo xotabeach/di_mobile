@@ -154,11 +154,11 @@ class HomeFragment : Fragment() {
             if (index == 0) {
                 set.connect(cardView.id, ConstraintSet.START, rowLayout.id, ConstraintSet.START, 8.dpToPx(context))
             } else {
-                set.connect(cardView.id, ConstraintSet.START, cardViews[index - 1].id, ConstraintSet.END, 8.dpToPx(context))
+                set.connect(cardView.id, ConstraintSet.START, cardViews[index - 1].id, ConstraintSet.END, 6.dpToPx(context))
             }
 
             if (index == cardViews.size - 1) {
-                set.connect(cardView.id, ConstraintSet.END, rowLayout.id, ConstraintSet.END, 8.dpToPx(context))
+                set.connect(cardView.id, ConstraintSet.END, rowLayout.id, ConstraintSet.END, 2.dpToPx(context))
             }
 
             set.applyTo(rowLayout)

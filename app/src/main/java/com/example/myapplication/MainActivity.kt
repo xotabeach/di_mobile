@@ -65,10 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bookmarkIcon.setOnClickListener {
-            val bundle = Bundle().apply {
-                putStringArrayList("bookmarks", ArrayList(bookmarks))
-            }
-            navController.navigate(R.id.BookmarkFragment, bundle)
+            navController.navigate(R.id.BookmarkFragment)
         }
 
 
