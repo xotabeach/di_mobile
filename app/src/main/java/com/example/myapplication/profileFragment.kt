@@ -1,19 +1,23 @@
 package com.example.myapplication
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.data.model.DatabaseHelper
+import com.example.myapplication.data.model.User
 
 class ProfileFragment : Fragment() {
 
     private lateinit var databaseHelper: DatabaseHelper
+    private lateinit var userEmail: String
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,22 +26,26 @@ class ProfileFragment : Fragment() {
 
         databaseHelper = DatabaseHelper(requireContext())
 
-        // Получаем данные из Bundle
         val username = arguments?.getString("USERNAME")
         val password = arguments?.getString("PASSWORD")
-        var doctor = ""
 
         if (username != null && password != null) {
             val user = databaseHelper.getUser(username, password)
             if (user != null) {
-                if (user.isDoctor) {
-                    doctor = "Врач"}
-                else {doctor = "Пациент"}
-                view.findViewById<TextView>(R.id.name).text = user.name + " "+user.surname
-                view.findViewById<TextView>(R.id.surname).text = doctor
+                userEmail = user.mail
+                val nameTextView = view.findViewById<TextView>(R.id.name)
+                val surnameTextView = view.findViewById<TextView>(R.id.surname)
+                val doctorStatus = if (user.isDoctor) "Врач" else "Пациент"
 
-                // Добавьте отображение других полей, если необходимо
+                nameTextView.text = "${user.name} ${user.surname}"
+                surnameTextView.text = doctorStatus
             }
+        }
+
+        val moreButton = view.findViewById<ImageView>(R.id.imageMore)
+        moreButton.setOnClickListener {
+
+            findNavController().navigate(R.id.ExpandedProfileFragment)
         }
 
         return view

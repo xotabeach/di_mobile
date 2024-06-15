@@ -34,7 +34,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.readableDatabase
         val cursor = db.query(
             TABLE_USER,
-            arrayOf(KEY_USERNAME, KEY_PASSWORD, KEY_NAME, KEY_SURNAME, KEY_PHONE, KEY_IS_DOCTOR),
+            arrayOf(KEY_USERNAME, KEY_PASSWORD, KEY_NAME, KEY_SURNAME, KEY_PHONE, KEY_IMAGE,KEY_MAIL, KEY_IS_DOCTOR),
             "$KEY_USERNAME = ?",
             arrayOf(username),
             null, null, null
@@ -47,6 +47,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 cursor.getString(cursor.getColumnIndex(KEY_NAME)),
                 cursor.getString(cursor.getColumnIndex(KEY_SURNAME)),
                 cursor.getString(cursor.getColumnIndex(KEY_PHONE)),
+                cursor.getString(cursor.getColumnIndex(KEY_IMAGE)),
+                cursor.getString(cursor.getColumnIndex(KEY_MAIL)),
                 cursor.getInt(cursor.getColumnIndex(KEY_IS_DOCTOR)) > 0
 
             )
@@ -90,7 +92,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.readableDatabase
         val cursor = db.query(
             TABLE_USER,
-            arrayOf(KEY_USERNAME, KEY_PASSWORD, KEY_NAME, KEY_SURNAME, KEY_PHONE, KEY_IS_DOCTOR),
+            arrayOf(KEY_USERNAME, KEY_PASSWORD, KEY_NAME, KEY_SURNAME, KEY_PHONE, KEY_IMAGE, KEY_MAIL, KEY_IS_DOCTOR),
             "$KEY_USERNAME = ? AND $KEY_PASSWORD = ?",
             arrayOf(username, password),
             null, null, null
@@ -102,6 +104,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 cursor.getString(cursor.getColumnIndex(KEY_NAME)),
                 cursor.getString(cursor.getColumnIndex(KEY_SURNAME)),
                 cursor.getString(cursor.getColumnIndex(KEY_PHONE)),
+                cursor.getString(cursor.getColumnIndex(KEY_IMAGE)),
+                cursor.getString(cursor.getColumnIndex(KEY_MAIL)),
                 cursor.getInt(cursor.getColumnIndex(KEY_IS_DOCTOR)) > 0
             )
             cursor.close()
@@ -121,6 +125,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             put(KEY_NAME, user.name)
             put(KEY_SURNAME, user.surname)
             put(KEY_PHONE, user.phone)
+            put(KEY_IMAGE, "")
+            put(KEY_MAIL, "")
             put(KEY_IS_DOCTOR, if (user.isDoctor) 1 else 0)
         }
         db.insert(TABLE_USER, null, values)
@@ -191,6 +197,25 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         return products
     }
 
+    fun updateUser(
+        email: String, lastname: String, firstname: String, middlename: String,
+        birthdate: String, phone: String, newEmail: String, imageBase64: String?
+    ) {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put(KEY_NAME, firstname)
+            put(KEY_SURNAME, lastname)
+            put(KEY_MAIL, newEmail)
+            put(KEY_PHONE, phone)
+            imageBase64?.let {
+                put(KEY_IMAGE, it)
+            }
+        }
+        db.update(TABLE_USER, values, "$KEY_MAIL = ?", arrayOf(email))
+    }
+
+
+
     private fun insertInitialData(db: SQLiteDatabase) {
         for (disease in Disease.diseases) {
             val values = ContentValues().apply {
@@ -204,6 +229,37 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             db.insert(TABLE_DISEASE, null, values)
         }
     }
+
+    @SuppressLint("Range")
+    fun getUserByEmail(email: String): User? {
+        val db = this.readableDatabase
+        val cursor = db.query(
+            TABLE_USER,
+            arrayOf(KEY_USERNAME, KEY_PASSWORD, KEY_NAME, KEY_SURNAME, KEY_PHONE, KEY_IMAGE, KEY_MAIL, KEY_IS_DOCTOR),
+            "$KEY_MAIL = ?",
+            arrayOf(email),
+            null, null, null
+        )
+        return if (cursor != null && cursor.moveToFirst()) {
+            val user = User(
+                cursor.getString(cursor.getColumnIndex(KEY_USERNAME)),
+                cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)),
+                cursor.getString(cursor.getColumnIndex(KEY_NAME)),
+                cursor.getString(cursor.getColumnIndex(KEY_SURNAME)),
+                cursor.getString(cursor.getColumnIndex(KEY_PHONE)),
+                cursor.getString(cursor.getColumnIndex(KEY_IMAGE)),
+                cursor.getString(cursor.getColumnIndex(KEY_MAIL)),
+                cursor.getInt(cursor.getColumnIndex(KEY_IS_DOCTOR)) > 0
+            )
+            cursor.close()
+            user
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+
 
     private fun insertInitialComponents(db: SQLiteDatabase) {
         val components = listOf(
@@ -268,7 +324,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
 
     companion object {
-        private const val DATABASE_VERSION = 3
+        private const val DATABASE_VERSION = 4
         private const val DATABASE_NAME = "app_db"
         private const val TABLE_USER = "user"
         private const val TABLE_PRODUCT = "product"
@@ -281,6 +337,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val KEY_NAME = "name"
         private const val KEY_SURNAME = "surname"
         private const val KEY_PHONE = "phone"
+        private const val KEY_IMAGE = "image"
+        private const val KEY_MAIL = "mail"
         private const val KEY_IS_DOCTOR = "is_doctor"
 
         // Параметры для таблицы продуктов
@@ -323,6 +381,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                         KEY_NAME + " TEXT," +
                         KEY_SURNAME + " TEXT," +
                         KEY_PHONE + " TEXT," +
+                        KEY_IMAGE + " TEXT," +
+                        KEY_MAIL + " TEXT," +
                         KEY_IS_DOCTOR + " INTEGER" + ")"
                 )
 

@@ -6,5 +6,9 @@ data class User(
     val name: String,
     val surname: String,
     val phone: String,
+    val image: String,
+    val mail: String,
     val isDoctor: Boolean
-)
+) {
+
+}

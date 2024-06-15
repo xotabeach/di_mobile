@@ -62,4 +62,11 @@
         tools:layout="@layout/fragment_bookmark" />
 
 
+    <fragment
+        android:id="@+id/ExpandedProfileFragment"
+        android:name="com.example.myapplication.ExpandedProfileFragment"
+        android:label="ExpandedProfileFragment"
+        tools:layout="@layout/fragment_expanded_profile" />
+
+
 </navigation>

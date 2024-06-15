@@ -129,11 +129,11 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun Int.dpToPx(context: Context): Int {
+    private fun Int.dpToPx(context: Context): Int {
         return (this * context.resources.displayMetrics.density).toInt()
     }
 
-    fun createRow(context: Context, cardViews: List<CardView>): ConstraintLayout {
+    private fun createRow(context: Context, cardViews: List<CardView>): ConstraintLayout {
         val rowLayout = ConstraintLayout(context).apply {
             id = View.generateViewId()
             layoutParams = ConstraintLayout.LayoutParams(
@@ -167,7 +167,7 @@ class HomeFragment : Fragment() {
         return rowLayout
     }
 
-    fun createCardView(context: Context, imageResId: Int, cardText: String): CardView {
+    private fun createCardView(context: Context, imageResId: Int, cardText: String): CardView {
         val cardView = CardView(context).apply {
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
                 width = 130.dpToPx(context)
@@ -201,17 +201,17 @@ class HomeFragment : Fragment() {
             layoutParams = LinearLayout.LayoutParams(30.dpToPx(context), 30.dpToPx(context)).apply {
                 gravity = Gravity.TOP or Gravity.END
             }
-            setImageResource(R.drawable.ic_bookmark_unselected)
+            setImageResource(if (bookmarks.contains(cardText)) R.drawable.ic_bookmark_selected else R.drawable.ic_bookmark_unselected)
             setOnClickListener {
                 val isBookmarked = bookmarks.contains(cardText)
                 if (isBookmarked) {
                     bookmarks.remove(cardText)
                     setImageResource(R.drawable.ic_bookmark_unselected)
-                    Toast.makeText(context, "$cardText удален из закладок", Toast.LENGTH_SHORT).show()
+
                 } else {
                     bookmarks.add(cardText)
                     setImageResource(R.drawable.ic_bookmark_selected)
-                    Toast.makeText(context, "$cardText добавлен в закладки", Toast.LENGTH_SHORT).show()
+
                 }
             }
         }
