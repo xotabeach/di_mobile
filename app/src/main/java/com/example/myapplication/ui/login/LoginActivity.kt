@@ -52,6 +52,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        val dietapp = binding.dietapp
         loginVk = binding.loginVk!!
         loginGoogle = binding.loginGoogle!!
         loginYandex = binding.loginYandex!!
@@ -142,6 +144,8 @@ class LoginActivity : AppCompatActivity() {
             phone.translationY = phoneheight
             doctorCheckBox.translationY = dockcheckheight
 
+
+
             name.visibility = View.VISIBLE
             surname.visibility = View.VISIBLE
             username.visibility = View.VISIBLE
@@ -181,6 +185,16 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+
+        binding.dietapp?.setOnClickListener {
+            val intent = Intent(this@LoginActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+
 
         login.setOnClickListener {
             val usernameText = username.text.toString().trimStart()

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var menuIcon: ImageView
     private var username = ""
     private var password = ""
-
+    val bookmarks = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +69,14 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.DietFragment)
         }
 
+        binding.bookmarkIcon.setOnClickListener {
+            val bundle = Bundle().apply {
+                putStringArrayList("bookmarks", ArrayList(bookmarks))
+            }
+            navController.navigate(R.id.BookmarkFragment, bundle)
+        }
+
+
         menuIcon.setOnClickListener {
             if (contextualMenu.visibility == View.GONE) {
                 showMenu()
@@ -82,17 +90,18 @@ class MainActivity : AppCompatActivity() {
                 putString("USERNAME", username)
                 putString("PASSWORD", password)
             }
-            navController.navigate(R.id.profileFragment, bundle)
             hideMenu()
+            navController.navigate(R.id.profileFragment, bundle)
+
         }
         findViewById<TextView>(R.id.nav_product_composition).setOnClickListener {
-            hideMenu()
+
         }
         findViewById<TextView>(R.id.nav_menu).setOnClickListener {
-            hideMenu()
+
     }
         findViewById<TextView>(R.id.nav_consultations).setOnClickListener {
-            hideMenu()
+
         }
     }
 

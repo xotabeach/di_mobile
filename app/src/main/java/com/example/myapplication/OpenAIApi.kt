@@ -5,7 +5,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
@@ -25,8 +24,8 @@ data class Choice(
 
 interface OpenAIApi {
     @POST("v1/completions")
+    @Headers("Content-Type: application/json")
     suspend fun generateDiet(
-        @Header("Authorization") apiKey: String,
         @Body request: OpenAIRequest
     ): OpenAIResponse
 
@@ -36,6 +35,12 @@ interface OpenAIApi {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
             val client = OkHttpClient.Builder()
+                .addInterceptor { chain ->
+                    val request = chain.request().newBuilder()
+                        .addHeader("Authorization", "Bearer ${BuildConfig.OPENAI_API_KEY}")
+                        .build()
+                    chain.proceed(request)
+                }
                 .addInterceptor(logging)
                 .build()
 

@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 class DietFragment : Fragment() {
 
@@ -53,28 +54,45 @@ class DietFragment : Fragment() {
     }
 
     private fun generateDiet(disease: String, excludeProducts: String) {
-        var prompt =""
-        if(excludeProducts.isNotEmpty()){
-            prompt = "Создай диету на 7 дней для болезни $disease, исключая продукты: $excludeProducts."
-        }
-        else prompt = "Создай диету на 7 дней для болезни $disease"
+        var prompt = ""
+
+        if (excludeProducts.isNotEmpty()) {
+            prompt = "Создай диету на 7 дней для болезни $disease, исключая продукты: $excludeProducts. Для каждого дня распредели всё на утро обед и ужин"
+        } else prompt = "Создай диету на 7 дней для болезни $disease. Для каждого дня распредели всё на утро обед и ужин"
+
         val request = OpenAIRequest(
             model = "gpt-3.5-turbo",  // Указание модели
             prompt = prompt,
-            max_tokens = 1000  // Укажите максимальное количество токенов, которое подходит для вашего случая
+            max_tokens = 300
         )
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = openAIApi.generateDiet(BuildConfig.OPENAI_API_KEY, request)
+                val response = openAIApi.generateDiet(request)
                 val diet = response.choices.first().text.trim()
                 withContext(Dispatchers.Main) {
                     dietTextView.text = diet
                     dietTextView.visibility = View.VISIBLE
                 }
+            } catch (e: HttpException) {
+                withContext(Dispatchers.Main) {
+                    when (e.code()) {
+                        401 -> {
+                            Toast.makeText(requireContext(), "API ключ неверный или отсутствует.", Toast.LENGTH_LONG).show()
+                        }
+                        429 -> {
+                            Toast.makeText(requireContext(), "Превышена квота API. Пожалуйста, проверьте ваш план и квоту.", Toast.LENGTH_LONG).show()
+                        }
+                        else -> {
+                            Toast.makeText(requireContext(), "Произошла ошибка: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
-                // Обработайте ошибку
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Произошла ошибка: ${e.message}", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

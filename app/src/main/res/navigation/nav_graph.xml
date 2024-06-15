@@ -51,8 +51,15 @@
     <fragment
         android:id="@+id/DietFragment"
         android:name="com.example.myapplication.DietFragment"
-        android:label="DietFragmentt"
+        android:label="DietFragment"
         tools:layout="@layout/fragment_diet" />
+
+
+    <fragment
+        android:id="@+id/BookmarkFragment"
+        android:name="com.example.myapplication.BookmarkFragment"
+        android:label="BookmarkFragment"
+        tools:layout="@layout/fragment_bookmark" />
 
 
 </navigation>

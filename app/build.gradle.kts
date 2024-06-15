@@ -27,7 +27,7 @@ android {
         versionName = "1.0"
 
 
-        buildConfigField("String", "OPENAI_API_KEY", "\"" + "sk-proj-zWQsys6JPxzk11hM0Wr9T3BlbkFJNReZKg7KO2tnMdKBMMKW" + "\"")
+        buildConfigField("String", "OPENAI_API_KEY", "\"" + "sk-proj-h0aN4j52jEPDRyx5CdsqT3BlbkFJo8JYz0jiHPV6VREvo6CY" + "\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

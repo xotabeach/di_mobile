@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -10,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentHomeBinding
 
@@ -23,6 +22,15 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var bookmarks: MutableSet<String>
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is MainActivity) {
+            bookmarks = context.bookmarks
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,10 +122,6 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.moreInfoFragment, bundle)
             }
         }
-
-
-
-
     }
 
     override fun onDestroyView() {
@@ -193,9 +197,36 @@ class HomeFragment : Fragment() {
             textSize = 14f
         }
 
+        val bookmarkImageView = ImageView(context).apply {
+            layoutParams = LinearLayout.LayoutParams(30.dpToPx(context), 30.dpToPx(context)).apply {
+                gravity = Gravity.TOP or Gravity.END
+            }
+            setImageResource(R.drawable.ic_bookmark_unselected)
+            setOnClickListener {
+                val isBookmarked = bookmarks.contains(cardText)
+                if (isBookmarked) {
+                    bookmarks.remove(cardText)
+                    setImageResource(R.drawable.ic_bookmark_unselected)
+                    Toast.makeText(context, "$cardText удален из закладок", Toast.LENGTH_SHORT).show()
+                } else {
+                    bookmarks.add(cardText)
+                    setImageResource(R.drawable.ic_bookmark_selected)
+                    Toast.makeText(context, "$cardText добавлен в закладки", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        val bookmarkContainer = LinearLayout(context).apply {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.TOP or Gravity.END
+            addView(bookmarkImageView)
+        }
+
         linearLayout.addView(imageView)
         linearLayout.addView(textView)
         cardView.addView(linearLayout)
+        cardView.addView(bookmarkContainer)
 
         return cardView
     }
