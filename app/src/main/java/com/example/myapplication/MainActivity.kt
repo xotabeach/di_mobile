@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var contextualMenu: LinearLayout
     private lateinit var menuIcon: ImageView
     private lateinit var nav_profile:TextView
+    private lateinit var nav_faq:TextView
+    private lateinit var nav_help:TextView
     private var username = ""
     private var password = ""
     val bookmarks = mutableSetOf<String>()
@@ -37,10 +39,12 @@ class MainActivity : AppCompatActivity() {
         contextualMenu = findViewById(R.id.contextualMenu)
         menuIcon = findViewById(R.id.menuIcon)
         nav_profile = findViewById(R.id.nav_profile)
+        nav_faq = findViewById(R.id.nav_faq)
+        nav_help = findViewById(R.id.nav_help)
 
 
-
-
+        nav_faq.isClickable = false
+        nav_help.isClickable = false
         nav_profile.isClickable = false
         contextualMenu.visibility = View.GONE
 
@@ -86,20 +90,23 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.profileFragment, bundle)
 
         }
-        findViewById<TextView>(R.id.nav_product_composition).setOnClickListener {
+        findViewById<TextView>(R.id.nav_faq).setOnClickListener {
 
+            navController.navigate(R.id.FAQFragment)
+            hideMenu()
         }
-        findViewById<TextView>(R.id.nav_menu).setOnClickListener {
-
+        findViewById<TextView>(R.id.nav_help).setOnClickListener {
+            navController.navigate(R.id.HelpFragment)
+            hideMenu()
     }
-        findViewById<TextView>(R.id.nav_consultations).setOnClickListener {
 
-        }
     }
 
     private fun showMenu() {
         contextualMenu.visibility = View.VISIBLE
         nav_profile.isClickable = true
+        nav_faq.isClickable = true
+        nav_help.isClickable = true
 
         val animate = TranslateAnimation(-contextualMenu.width.toFloat()*2, 0f, 0f, 0f)
         animate.duration = 300
@@ -118,6 +125,8 @@ class MainActivity : AppCompatActivity() {
             override fun onAnimationEnd(animation: Animation) {
                 contextualMenu.visibility = View.GONE
                 nav_profile.isClickable = false
+                nav_faq.isClickable = false
+                nav_help.isClickable = false
             }
         })
     }

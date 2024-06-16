@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
-class DoctorAdapter(private val faqList: List<DoctorItem>): RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>() {
+
+
+class DoctorAdapter(private val faqList: List<DoctorItem>) : RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder>() {
+
     inner class DoctorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val questionTextView: TextView = itemView.findViewById(R.id.questionTextView)
         val answerTextView: TextView = itemView.findViewById(R.id.answerTextView)
@@ -26,9 +29,9 @@ class DoctorAdapter(private val faqList: List<DoctorItem>): RecyclerView.Adapter
         holder.questionTextView.text = currentItem.question
         holder.answerTextView.text = currentItem.answer
         holder.answerTextView.visibility = if (currentItem.isExpanded) View.VISIBLE else View.GONE
-        holder.toggleButton.setImageResource(if (currentItem.isExpanded) R.drawable.down_arrow else R.drawable.down_arrow)
+        holder.toggleButton.setImageResource(if (currentItem.isExpanded) R.drawable.upload else R.drawable.down_arrow)
 
-        holder.itemView.setOnClickListener {
+        holder.questionTextView.setOnClickListener {
             currentItem.isExpanded = !currentItem.isExpanded
             notifyItemChanged(position)
         }

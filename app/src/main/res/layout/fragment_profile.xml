@@ -6,15 +6,6 @@
     android:layout_height="match_parent"
     android:background="#1F7460">
 
-    <ImageView
-        android:id="@+id/backButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="36dp"
-        android:layout_height="40dp"
-        android:scaleType="fitStart"
-        android:layout_marginStart="15dp"
-        android:src="@drawable/next" />
 
 
 
@@ -23,7 +14,7 @@
         android:layout_width="36dp"
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="125dp"
+        android:layout_marginEnd="25dp"
         android:scaleType="fitEnd"
         android:src="@drawable/to"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +27,7 @@
         android:layout_height="250dp"
         android:layout_marginTop="15dp"
         android:scaleType="fitEnd"
-
+        android:layout_marginStart="82dp"
         android:src="@drawable/new_user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -116,6 +107,16 @@
 
     </androidx.cardview.widget.CardView>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/image2" />
+
+
     <ImageView
         android:id="@+id/image2"
         android:layout_width="118dp"
@@ -158,6 +159,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text1" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+
+        android:layout_marginTop="15dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image2" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -170,8 +180,8 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="bottom"
-            android:layout_marginStart="28dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="95dp"
 
             android:fontFamily="@font/amatic_sc"
             android:text="Выйти из профиля"

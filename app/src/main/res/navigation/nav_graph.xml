@@ -68,5 +68,17 @@
         android:label="ExpandedProfileFragment"
         tools:layout="@layout/fragment_expanded_profile" />
 
+    <fragment
+        android:id="@+id/FAQFragment"
+        android:name="com.example.myapplication.FAQFragment"
+        android:label="FAQFragment"
+        tools:layout="@layout/fragment_faq" />
+
+    <fragment
+        android:id="@+id/HelpFragment"
+        android:name="com.example.myapplication.HelpFragment"
+        android:label="HelpFragment"
+        tools:layout="@layout/fragment_help" />
+
 
 </navigation>

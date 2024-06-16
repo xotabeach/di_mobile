@@ -9,11 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DoctorFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DoctorFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,20 +23,24 @@ class DoctorFragment : Fragment() {
 
         val faqList = listOf(
             DoctorItem(
-                "Как сменить язык?",
-                "Для смены языка перейдите в настройки и выберите нужный язык."
-            ),
-            DoctorItem(
-                "Как создать маршрут?",
-                "Для создания маршрута используйте вкладку 'Маршруты' и следуйте инструкциям."
-            ),
-            DoctorItem(
-                "Я не могу создавать маршрут",
-                "Пожалуйста, убедитесь, что у вас есть права на создание маршрута."
-            ),
-            DoctorItem(
-                "Как сменить данные профиля?",
-                "Для смены данных профиля перейдите в раздел 'Профиль' и выберите пункт 'Редактировать'."
+                "Ахметзянова Гульнара Равилевна",
+                "\n" +
+                "1.Образование\n" +
+                        "   2019 Г. - Казанский федеральный университет, \n" +
+                        "лечебное дело\n" +
+                        "2021 г. - Казанский федеральный университет,\n" +
+                        "гастроэнтерология\n" +
+                        "2.Повышение квалификации\n" +
+                        "   2021 г . - “Гастроэнтерология сегодня”, Джи \n" +
+                        "Академия\n" +
+                        "2022 г. - “Бабочки в животе” курс Алексея Головенко,\n" +
+                        "посвященный СРК\n" +
+                        "2022 г. - “Актуальные вопросы диагностики и \n" +
+                        "лечения заболеваний пищеварительной системы”\n" +
+                        "3.Статьи в журнале\n" +
+                        "   2020 г. - Европейский регистр ведения инфекций \n" +
+                        "helicobacter pyloti: особенности диагностики и \n" +
+                        "лечения в Казани."
             )
         )
 

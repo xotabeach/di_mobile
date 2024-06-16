@@ -35,7 +35,7 @@ class ProductsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_products, container, false)
         val productsContainer = view.findViewById<LinearLayout>(R.id.products_container)
 
-        val title = arguments?.getString("title");
+        val title = arguments?.getString("title")
         Log.d("title", "title is : $title")
         val backButton = view.findViewById<ImageView>(R.id.backButton)
         backButton.setOnClickListener {
@@ -64,9 +64,9 @@ class ProductsFragment : Fragment() {
             productUsefulness.text = product.usefulness.toString()
 
             val backgroundColor = when {
-                product.usefulness in -4..0 -> Color.YELLOW
-                product.usefulness <= -5 -> Color.RED
-                product.usefulness in 1..20 -> Color.GREEN
+                product.usefulness in -4..0 -> Color.parseColor("#C5C82F") // Темно-желтый
+                product.usefulness <= -5 -> Color.parseColor("#C73232") // Темно-красный
+                product.usefulness in 1..20 -> Color.parseColor("#52C673") // Темно-зеленый
                 else -> Color.WHITE
             }
             productView.setCardBackgroundColor(backgroundColor)
