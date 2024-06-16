@@ -20,6 +20,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import com.example.myapplication.data.model.DatabaseHelper
 import java.io.ByteArrayOutputStream
@@ -84,7 +85,7 @@ class ExpandedProfileFragment : Fragment() {
             openGallery()
         }
 
-        val saveButton = view.findViewById<Button>(R.id.saveButton)
+        val saveButton = view.findViewById<CardView>(R.id.saveButton)
         saveButton.setOnClickListener {
             val updatedLastname = lastnameField.text.toString()
             val updatedFirstname = firstnameField.text.toString()
@@ -100,7 +101,7 @@ class ExpandedProfileFragment : Fragment() {
             Toast.makeText(context, "Профиль обновлен", Toast.LENGTH_SHORT).show()
         }
 
-        val cancelButton = view.findViewById<Button>(R.id.cancelButton)
+        val cancelButton = view.findViewById<CardView>(R.id.cancelButton)
         cancelButton.setOnClickListener {
             parentFragmentManager.popBackStack()
         }

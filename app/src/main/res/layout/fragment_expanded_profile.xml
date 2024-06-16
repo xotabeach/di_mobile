@@ -13,11 +13,13 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:scaleType="fitStart"
+
         android:src="@drawable/next"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:fontFamily="@font/amatic_sc"
         android:id="@+id/profileTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,9 +49,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/amatic_sc"
         android:text="Личная информация"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profileImage" />
 
@@ -57,16 +62,16 @@
         android:id="@+id/lastnameField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="*Фамилия"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
+        android:hint="*Фамилия"
+        android:inputType="text"
+        android:paddingBottom="8dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        android:paddingBottom="8dp"
-        android:inputType="text"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/personalInfoTitle" />
 
     <View
@@ -83,7 +88,8 @@
         android:id="@+id/firstnameField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
         android:hint="*Имя"
         android:background="@android:color/transparent"
         android:textColor="#FFFFFF"
@@ -108,7 +114,8 @@
         android:id="@+id/middlenameField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
         android:hint="*Отчество"
         android:background="@android:color/transparent"
         android:textColor="#FFFFFF"
@@ -133,7 +140,8 @@
         android:id="@+id/birthdateField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
         android:hint="*Дата рождения"
         android:background="@android:color/transparent"
         android:textColor="#FFFFFF"
@@ -161,8 +169,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Контакты"
+        android:fontFamily="@font/amatic_sc"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/birthdateField" />
 
@@ -170,7 +179,8 @@
         android:id="@+id/phoneField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
         android:hint="Телефон"
         android:background="@android:color/transparent"
         android:textColor="#FFFFFF"
@@ -195,7 +205,8 @@
         android:id="@+id/emailField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="8dp"
         android:hint="Email"
         android:background="@android:color/transparent"
         android:textColor="#FFFFFF"
@@ -216,28 +227,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emailField" />
 
-    <Button
+    <androidx.cardview.widget.CardView
         android:id="@+id/saveButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:backgroundTint="#4CAF50"
-        android:text="Сохранить"
+        android:layout_height="65dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="55dp"
+        android:elevation="5dp"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailField" />
+        app:cardBackgroundColor="#FFFFFF"
 
-    <Button
+        app:cardCornerRadius="15dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailField">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Сохранить"
+            android:textSize="20dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/cancelButton"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:layout_margin="16dp"
-        android:backgroundTint="#F44336"
+        android:elevation="5dp"
         android:text="Отменить изменения"
         android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
+        app:cardBackgroundColor="#DCA3A3A3"
+        app:cardCornerRadius="15dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/saveButton" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveButton">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Отменить изменения"
+            android:textSize="20dp" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

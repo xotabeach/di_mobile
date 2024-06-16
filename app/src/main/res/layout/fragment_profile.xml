@@ -69,7 +69,7 @@
                 android:layout_margin="5dp"
                 android:fontFamily="@font/amatic_sc"
                 android:text=""
-                android:textSize="24sp" />
+                android:textSize="28sp" />
         </LinearLayout>
 
 
@@ -100,7 +100,7 @@
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:layout_gravity="bottom"
                 android:fontFamily="@font/amatic_sc"
                 android:text="" />
@@ -160,8 +160,9 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/exitButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image2"
         android:layout_marginTop="25dp">
@@ -170,7 +171,7 @@
             android:layout_height="30dp"
             android:layout_gravity="bottom"
             android:layout_marginStart="28dp"
-
+            android:layout_marginEnd="8dp"
 
             android:fontFamily="@font/amatic_sc"
             android:text="Выйти из профиля"
