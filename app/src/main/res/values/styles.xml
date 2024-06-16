@@ -16,6 +16,11 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="DietItemStyle">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
 
 
 </resources>
