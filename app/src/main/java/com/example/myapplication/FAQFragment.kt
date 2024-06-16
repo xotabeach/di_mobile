@@ -29,9 +29,9 @@ class FAQFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         val faqList = listOf(
-            FAQItem("Причины", "Здесь будет описание причин..."),
-            FAQItem("Лечение", "Здесь будет описание лечения..."),
-            FAQItem("Основные принципы лечения", "Здесь будут основные принципы лечения...")
+            FAQItem("Как создать диету?", "Здесь будет описание причин..."),
+            FAQItem("Как редактировать профиль?", "Здесь будет описание лечения..."),
+            FAQItem("Как посмотреть закладки?", "Здесь будут основные принципы лечения...")
         )
 
         faqAdapter = FAQAdapter(faqList)

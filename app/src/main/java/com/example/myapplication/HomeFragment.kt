@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -52,10 +51,7 @@ class HomeFragment : Fragment() {
                 ConstraintLayout.LayoutParams.MATCH_PARENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                topToBottom = R.id.textDescr
-                startToStart = constraintLayout.id
-                endToEnd = constraintLayout.id
-                topMargin = 20.dpToPx(context)
+                topMargin = 15.dpToPx(context)
             }
         }
 
@@ -84,11 +80,11 @@ class HomeFragment : Fragment() {
         val constraintSet = ConstraintSet().apply {
             clone(constraintLayout)
 
-            connect(R.id.textDescr, ConstraintSet.TOP, constraintLayout.id, ConstraintSet.TOP, 65.dpToPx(context))
-            connect(R.id.textDescr, ConstraintSet.START, constraintLayout.id, ConstraintSet.START)
-            connect(R.id.textDescr, ConstraintSet.END, constraintLayout.id, ConstraintSet.END)
+            connect(R.id.textDescrHome, ConstraintSet.TOP, constraintLayout.id, ConstraintSet.TOP, 10.dpToPx(context))
+            connect(R.id.textDescrHome, ConstraintSet.START, constraintLayout.id, ConstraintSet.START)
+            connect(R.id.textDescrHome, ConstraintSet.END, constraintLayout.id, ConstraintSet.END)
 
-            connect(cardContainer.id, ConstraintSet.TOP, R.id.textDescr, ConstraintSet.BOTTOM, 16.dpToPx(context))
+            connect(cardContainer.id, ConstraintSet.TOP, R.id.textDescrHome, ConstraintSet.BOTTOM, 16.dpToPx(context))
             connect(cardContainer.id, ConstraintSet.START, constraintLayout.id, ConstraintSet.START)
             connect(cardContainer.id, ConstraintSet.END, constraintLayout.id, ConstraintSet.END)
         }
@@ -207,11 +203,9 @@ class HomeFragment : Fragment() {
                 if (isBookmarked) {
                     bookmarks.remove(cardText)
                     setImageResource(R.drawable.ic_bookmark_unselected)
-
                 } else {
                     bookmarks.add(cardText)
                     setImageResource(R.drawable.ic_bookmark_selected)
-
                 }
             }
         }

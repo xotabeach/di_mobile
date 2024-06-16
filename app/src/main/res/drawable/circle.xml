@@ -11,4 +11,18 @@
         android:strokeColor="#80000000"
         android:fillColor="#40C5A5" />
 
+    <!-- Вертикальная линия плюса -->
+    <path
+        android:pathData="M 50,35 L 50,65"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="@color/black" />
+
+    <!-- Горизонтальная линия плюса -->
+    <path
+        android:pathData="M 35,50 L 65,50"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="@color/black"  />
+
 </vector>
