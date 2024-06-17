@@ -1,10 +1,13 @@
 package com.example.myapplication.doctor
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -14,8 +17,19 @@ class DoctorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_doctor, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_doctor, container, false)
+        val title = arguments?.getString("title")
+        Log.d("title", "title is : $title")
+
+
+        val backButton = view?.findViewById<ImageView>(R.id.backButton)
+        backButton?.setOnClickListener {
+            val bundle = Bundle().apply { putString("title", title) }
+            findNavController().navigate(R.id.moreInfoFragment, bundle)
+        }
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

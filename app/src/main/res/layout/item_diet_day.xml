@@ -11,9 +11,9 @@
         android:id="@+id/dayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black" />
+        android:textSize="22sp"
+        android:fontFamily="@font/amatic_sc"
+        android:textColor="@android:color/white" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

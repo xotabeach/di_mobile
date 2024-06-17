@@ -1,6 +1,9 @@
 package com.example.myapplication
 
+import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,293 +23,15 @@ class DietFragment : Fragment() {
     private lateinit var excludeProductsTextView: MultiAutoCompleteTextView
     private lateinit var createDietButton: Button
     private lateinit var recyclerViewDiet: RecyclerView
+    private lateinit var shareButton: ImageView
+
 
     private val openAIApi: OpenAIApi by lazy {
         OpenAIApi.create()
     }
 
     // Predefined diet plans
-    private val dietMap = mapOf(
-        "Гастрэктомия" to """
-        Понедельник:
-        Завтрак:
-        1) Овсяная каша на воде
-        2) Вареное яйцо
-        3) Компот из сухофруктов
-        Обед:
-        1) Овощной суп
-        2) Паровая куриная котлета
-        3) Пюре из кабачков
-        Ужин:
-        1) Рисовая каша
-        2) Рыба на пару
-        3) Чай с ромашкой
-        
-        Вторник:
-        Завтрак:
-        1) Гречневая каша
-        2) Йогурт без добавок
-        3) Сухофрукты
-        Обед:
-        1) Куриный бульон с вермишелью
-        2) Отварная индейка
-        3) Тушеная морковь
-        Ужин:
-        1) Творог
-        2) Овощное пюре
-        3) Чай с мятой
-        
-        ...
-    """.trimIndent(),
-        "Целиакия" to """
-        Понедельник:
-        Завтрак:
-        1) Гречневая каша с ягодами
-        2) Яйцо всмятку
-        3) Чай без сахара
-        Обед:
-        1) Тыквенный суп
-        2) Куриная грудка на пару
-        3) Салат из свежих овощей
-        Ужин:
-        1) Рис с овощами
-        2) Паровые котлеты из индейки
-        3) Травяной чай
-        
-        Вторник:
-        Завтрак:
-        1) Овсяная каша без глютена
-        2) Натуральный йогурт
-        3) Яблоко
-        Обед:
-        1) Борщ без глютена
-        2) Запеченная рыба
-        3) Винегрет
-        Ужин:
-        1) Картофельное пюре
-        2) Овощное рагу
-        3) Чай с лимоном
-        
-        ...
-    """.trimIndent(),
-        "Гастрит обострение" to """
-        Понедельник:
-        Завтрак:
-        1) Манная каша
-        2) Паровой омлет
-        3) Кисель
-        Обед:
-        1) Слизистый суп
-        2) Тефтели на пару
-        3) Тушеные кабачки
-        Ужин:
-        1) Рисовый пудинг
-        2) Вареная рыба
-        3) Чай с ромашкой
-        
-        Вторник:
-        Завтрак:
-        1) Геркулесовая каша
-        2) Творожная запеканка
-        3) Компот из сухофруктов
-        Обед:
-        1) Суп-пюре из овощей
-        2) Отварная курица
-        3) Пюре из цветной капусты
-        Ужин:
-        1) Творог
-        2) Овощное рагу
-        3) Травяной чай
-        
-        ...
-    """.trimIndent(),
-        "Резекция желудка" to """
-        Понедельник:
-        Завтрак:
-        1) Рисовая каша на воде
-        2) Вареное яйцо
-        3) Чай с медом
-        Обед:
-        1) Суп из овощей
-        2) Паровая куриная котлета
-        3) Тушеные овощи
-        Ужин:
-        1) Гречневая каша
-        2) Рыба на пару
-        3) Травяной чай
-        
-        Вторник:
-        Завтрак:
-        1) Овсяная каша на воде
-        2) Йогурт
-        3) Яблоко
-        Обед:
-        1) Куриный бульон
-        2) Отварная говядина
-        3) Салат из овощей
-        Ужин:
-        1) Творожная запеканка
-        2) Овощное пюре
-        3) Чай с мятой
-        
-        ...
-    """.trimIndent(),
-        "Панкреатит ремиссия" to """
-        Понедельник:
-        Завтрак:
-        1) Овсяная каша
-        2) Яйцо всмятку
-        3) Компот из сухофруктов
-        Обед:
-        1) Овощной суп
-        2) Куриная грудка на пару
-        3) Пюре из моркови
-        Ужин:
-        1) Рисовая каша
-        2) Тушеная рыба
-        3) Чай с мятой
-        
-        Вторник:
-        Завтрак:
-        1) Гречневая каша
-        2) Натуральный йогурт
-        3) Груша
-        Обед:
-        1) Тыквенный суп
-        2) Тефтели на пару
-        3) Тушеные овощи
-        Ужин:
-        1) Творог
-        2) Овощное рагу
-        3) Чай с ромашкой
-        
-        ...
-    """.trimIndent(),
-        "Гастрит (ремиссия)" to """
-        Понедельник:
-        Завтрак:
-        1) Овсяная каша
-        2) Паровой омлет
-        3) Компот из яблок
-        Обед:
-        1) Овощной суп
-        2) Отварная курица
-        3) Пюре из картофеля
-        Ужин:
-        1) Рис с овощами
-        2) Запеченная рыба
-        3) Травяной чай
-        
-        Вторник:
-        Завтрак:
-        1) Гречневая каша
-        2) Йогурт без добавок
-        3) Яблоко
-        Обед:
-        1) Борщ
-        2) Куриные котлеты на пару
-        3) Салат из свежих овощей
-        Ужин:
-        1) Творог
-        2) Овощное рагу
-        3) Чай с лимоном
-        
-        ...
-    """.trimIndent(),
-        "ГЭРБ" to """
-        Понедельник:
-        Завтрак:
-        1) Геркулесовая каша
-        2) Вареное яйцо
-        3) Чай с ромашкой
-        Обед:
-        1) Куриный бульон с вермишелью
-        2) Куриная грудка на пару
-        3) Тушеная морковь
-        Ужин:
-        1) Творог
-        2) Овощное пюре
-        3) Чай с мятой
-        
-        Вторник:
-        Завтрак:
-        1) Овсяная каша
-        2) Натуральный йогурт
-        3) Яблоко
-        Обед:
-        1) Тыквенный суп
-        2) Запеченная рыба
-        3) Салат из свежих овощей
-        Ужин:
-        1) Гречневая каша
-        2) Овощное рагу
-        3) Чай с лимоном
-        
-        ...
-    """.trimIndent(),
-        "Болезнь Крона" to """
-        Понедельник:
-        Завтрак:
-        1) Овсяная каша на воде
-        2) Вареное яйцо
-        3) Компот из сухофруктов
-        Обед:
-        1) Овощной суп
-        2) Паровая куриная котлета
-        3) Пюре из кабачков
-        Ужин:
-        1) Рисовая каша
-        2) Рыба на пару
-        3) Чай с ромашкой
-        
-        Вторник:
-        Завтрак:
-        1) Гречневая каша
-        2) Йогурт без добавок
-        3) Сухофрукты
-        Обед:
-        1) Куриный бульон с вермишелью
-        2) Отварная индейка
-        3) Тушеная морковь
-        Ужин:
-        1) Творог
-         2) Овощное пюре
-        3) Чай с мятой
-        
-        ...
-    """.trimIndent(),
-        "Холецистит" to """
-        Понедельник:
-        Завтрак:
-        1) Овсяная каша на воде
-        2) Вареное яйцо
-        3) Компот из сухофруктов
-        Обед:
-        1) Овощной суп
-        2) Паровая куриная котлета
-        3) Пюре из кабачков
-        Ужин:
-        1) Рисовая каша
-        2) Рыба на пару
-        3) Чай с ромашкой
-        
-        Вторник:
-        Завтрак:
-        1) Гречневая каша
-        2) Йогурт без добавок
-        3) Сухофрукты
-        Обед:
-        1) Куриный бульон с вермишелью
-        2) Отварная индейка
-        3) Тушеная морковь
-        Ужин:
-        1) Творог
-        2) Овощное пюре
-        3) Чай с мятой
-        
-        ...
-    """.trimIndent()
-    )
+    private val dietMap = DietMapData.dietMap;
 
 
     override fun onCreateView(
@@ -314,6 +39,10 @@ class DietFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_diet, container, false)
+        shareButton = view.findViewById(R.id.buttonShare)
+        shareButton.setOnClickListener {
+            shareDietInCalendar()
+        }
         diseaseSpinner = view.findViewById(R.id.spinnerDisease)
         excludeProductsTextView = view.findViewById(R.id.multiAutoCompleteTextView)
         createDietButton = view.findViewById(R.id.buttonCreateDiet)
@@ -331,6 +60,12 @@ class DietFragment : Fragment() {
         excludeProductsTextView.setTokenizer(MultiAutoCompleteTextView.CommaTokenizer())
 
         createDietButton.setOnClickListener {
+
+            createDietButton.visibility = View.GONE
+            diseaseSpinner.visibility = View.GONE
+            excludeProductsTextView.visibility = View.GONE
+            shareButton.visibility = View.VISIBLE
+            shareButton.z = 4f
             val selectedDisease = diseaseSpinner.selectedItem.toString()
             val excludedProducts = excludeProductsTextView.text.toString()
             generateDiet(selectedDisease, excludedProducts)
@@ -339,6 +74,40 @@ class DietFragment : Fragment() {
         recyclerViewDiet.layoutManager = LinearLayoutManager(context)
         return view
     }
+
+    private fun shareDietInCalendar() {
+        val currentDate = Calendar.getInstance()
+        val dayOfWeek = currentDate.get(Calendar.DAY_OF_WEEK)
+        val dietText = generateDietTextForCalendar(dayOfWeek)
+
+        val intent = Intent(Intent.ACTION_INSERT).apply {
+            data = CalendarContract.Events.CONTENT_URI
+            putExtra(CalendarContract.Events.TITLE, "Диета на неделю")
+            putExtra(CalendarContract.Events.DESCRIPTION, dietText)
+            putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, currentDate.timeInMillis)
+            putExtra(CalendarContract.EXTRA_EVENT_END_TIME, currentDate.timeInMillis + 60 * 60 * 1000)
+        }
+        startActivity(intent)
+    }
+
+    private fun generateDietTextForCalendar(startDay: Int): String {
+        val daysOfWeek = listOf("Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье")
+        val startIndex = startDay - 2 // Calendar.DAY_OF_WEEK starts with Sunday (1), we need to start from Monday (0)
+
+        val dietStringBuilder = StringBuilder()
+        for (i in 0 until 7) {
+            val dayIndex = (startIndex + i) % 7
+            val dayName = daysOfWeek[dayIndex]
+            dietStringBuilder.append("$dayName:\n")
+            val dietDay = dietMap[dayName]
+            if (dietDay != null) {
+                dietStringBuilder.append(dietDay)
+                dietStringBuilder.append("\n\n")
+            }
+        }
+        return dietStringBuilder.toString().trim()
+    }
+
 
     private fun generateDiet(disease: String, excludeProducts: String) {
         var prompt = ""
@@ -425,6 +194,7 @@ class DietFragment : Fragment() {
                 withContext(Dispatchers.Main) {
                     recyclerViewDiet.adapter = DietAdapter(dietDays)
                     recyclerViewDiet.visibility = View.VISIBLE
+
                 }
             } catch (e: HttpException) {
                 withContext(Dispatchers.Main) {

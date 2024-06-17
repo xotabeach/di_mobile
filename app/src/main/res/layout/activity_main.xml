@@ -71,7 +71,7 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="8dp"
-            android:text="ОБРАТИТСЯ"
+            android:text="ИНСТРУКЦИИ"
             android:textColor="#000000"
             android:textSize="18sp" />
 
