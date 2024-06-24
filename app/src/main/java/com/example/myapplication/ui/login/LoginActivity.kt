@@ -165,16 +165,19 @@ class LoginActivity : AppCompatActivity() {
             val surnameText = surname.text.toString().trimStart()
             val phoneText = phone.text.toString().trimStart()
             val isDoctor = doctorCheckBox.isChecked
+            val middlename = ""
+            val birthdate = ""
             val imageText = ""
             val mailText = ""
 
 
             if (usernameText.isNotEmpty() && passwordText.isNotEmpty() && nameText.isNotEmpty() && surnameText.isNotEmpty() && phoneText.isNotEmpty()) {
                 lifecycleScope.launch {
+
                     val existingUser = userRepository.getUserByUsername(usernameText)
                     if (existingUser == null) {
 
-                        val user = User(usernameText, passwordText, nameText, surnameText, phoneText, imageText, mailText,isDoctor)
+                        val user = User(usernameText, passwordText, nameText, surnameText, middlename, birthdate,phoneText, imageText, mailText,isDoctor)
                         userRepository.insertUser(user)
                         Toast.makeText(this@LoginActivity, "Registration successful", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@LoginActivity, LoginActivity::class.java)

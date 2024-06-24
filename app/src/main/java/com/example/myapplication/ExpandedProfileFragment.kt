@@ -67,8 +67,8 @@ class ExpandedProfileFragment : Fragment() {
         if (user != null) {
             lastnameField.setText(user.surname)
             firstnameField.setText(user.name)
-            //middlenameField.setText(user.middlename)
-            //birthdateField.setText(user.birthdate)
+            middlenameField.setText(user.middlename)
+            birthdateField.setText(user.birthdate)
             phoneField.setText(user.phone)
             emailField.setText(user.mail)
 
